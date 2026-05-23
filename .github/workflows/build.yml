@@ -13,10 +13,32 @@ jobs:
     - name: Checkout source
       uses: actions/checkout@v4
       
-    - name: Install Theos (Roothide)
+    - name: Install Theos (Roothide) with retry
       run: |
-        bash -c "$(curl -fsSL https://raw.githubusercontent.com/roothide/theos/master/bin/install-theos)"
+        # 设置重试机制
+        for i in 1 2 3; do
+          echo "Attempt $i to install Theos..."
+          bash -c "$(curl -fsSL https://raw.githubusercontent.com/roothide/theos/master/bin/install-theos)" && break
+          sleep 10
+        done
         echo "THEOS=$HOME/theos" >> $GITHUB_ENV
+        
+    - name: Check Theos installation
+      run: |
+        ls -la $HOME/theos || echo "Theos not found"
+        ls -la $HOME/theos/sdks/ || echo "SDKs not found"
+        
+    - name: Manual SDK install (fallback)
+      if: failure()
+      run: |
+        # 如果自动安装失败，手动下载 SDK
+        mkdir -p $HOME/theos/sdks
+        cd $HOME/theos/sdks
+        curl -L -o sdks.zip https://github.com/theos/sdks/archive/master.zip || \
+        curl -L -o sdks.zip https://ghproxy.com/https://github.com/theos/sdks/archive/master.zip
+        unzip -q sdks.zip
+        mv sdks-master/*.sdk . 2>/dev/null || true
+        rm -rf sdks-master sdks.zip
         
     - name: Build package
       run: |
