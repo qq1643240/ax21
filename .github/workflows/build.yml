@@ -1,0 +1,33 @@
+name: Build Axon Roothide
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@v4
+      
+    - name: Install Theos (Roothide)
+      run: |
+        bash -c "$(curl -fsSL https://raw.githubusercontent.com/roothide/theos/master/bin/install-theos)"
+        echo "THEOS=$HOME/theos" >> $GITHUB_ENV
+        
+    - name: Build package
+      run: |
+        export THEOS=$HOME/theos
+        export THEOS_PACKAGE_SCHEME=roothide
+        make clean
+        make package
+        
+    - name: Upload deb artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: Axon-Roothide-Deb
+        path: packages/*.deb
+        if-no-files-found: error
