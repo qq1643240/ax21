@@ -387,7 +387,7 @@ void updateViewConfiguration() {
 /* Hide "No older notifications." */
 -(void)layoutSubviews {
     %orig;
-    MSHookIvar(self, "_revealHintTitle").hidden = YES;
+((UIView *)MSHookIvar<id>(self, "_revealHintTitle")).hidden = YES;
 }
 
 %end
@@ -428,7 +428,7 @@ void updateViewConfiguration() {
 -(CGSize)collectionView:(UICollectionView *)arg1 layout:(UICollectionViewLayout*)arg2 sizeForItemAtIndexPath:(id)arg3 {
     CGSize orig = %orig;
     UIView *view = [arg1 cellForItemAtIndexPath:arg3].contentView;
-    for(id item in view.allSubviews) {
+for(id item in [view subviews]) {
         if([item isKindOfClass:[objc_getClass("NCNotificationContentView") class]]) {
             return CGSizeMake(orig.width - 96, ((UIView *)item).frame.size.height+30);
         }
