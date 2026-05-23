@@ -1,7 +1,7 @@
 #import "AXNView.h"
 #import "RandomHeaders.h"
 #import "Protocol.h"
-
+#import <objc/runtime.h>
 @interface AXNManager : NSObject
 
 @property (nonatomic, retain) NSMutableDictionary *notificationRequests;
@@ -14,7 +14,7 @@
 @property (nonatomic, retain) UIColor *fallbackColor;
 @property (nonatomic, weak) NCNotificationRequest *latestRequest;
 @property (nonatomic, weak) AXNView *view;
-@property (nonatomic, weak) id clvc;
+@property (nonatomic, weak) id<<clvc> clvc;
 @property (nonatomic, weak) id sbclvc;
 @property (nonatomic, weak) NCNotificationDispatcher *dispatcher;
 
