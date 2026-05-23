@@ -1,6 +1,6 @@
 #import "RandomHeaders.h"
 
-@interface AXNView : UIView
+@interface AXNView : UIView <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (nonatomic, retain) NSMutableArray *list;
 @property (nonatomic, retain) UICollectionView *collectionView;
