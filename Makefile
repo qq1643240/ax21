@@ -14,7 +14,7 @@ TWEAK_NAME = Axon
 Axon_FILES = Tweak/Tweak.xm Tweak/AXNView.m Tweak/AXNManager.m Tweak/AXNAppCell.m Tweak/AXNRequestWrapper.m
 Axon_CFLAGS = -fobjc-arc
 Axon_LIBRARIES = substrate
-Axon_FRAMEWORKS = UIKit CoreGraphics
+Axon_FRAMEWORKS = UIKit CoreGraphics AudioToolbox
 Axon_PRIVATE_FRAMEWORKS = MediaPlayer
 Axon_EXTRA_FRAMEWORKS += Cephei
 
