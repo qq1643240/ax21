@@ -1,3 +1,5 @@
+#import <Foundation/Foundation.h>
+
 @protocol clvc
 @property (nonatomic,assign) BOOL axnAllowChanges;
 
