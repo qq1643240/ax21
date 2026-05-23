@@ -1,6 +1,7 @@
 #import "Protocol.h"
 #import <UIKit/UIKit.h>
 #import <CoreGraphics/CoreGraphics.h>
+#import <WebKit/WebKit.h>
 
 @interface BBBulletin : NSObject
 @property (nonatomic,readonly) NSString * sectionDisplayName;
@@ -101,7 +102,7 @@ struct SBIconImageInfo {
 @end
 
 @interface SBIconController : UIViewController
-@property (nonatomic, retain) WKWebView *axnIntegrityView;
+@property (nonatomic, retain) UIView *axnIntegrityView;
 +(id)sharedInstance;
 -(SBIconViewMap *)homescreenIconViewMap;
 -(SBIconModel *)model;
